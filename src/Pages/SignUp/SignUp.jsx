@@ -85,8 +85,8 @@ export default function SignUp() {
 
   return (
     <>
-      <main className="py-12">
-        <div className="container grid lg:grid-cols-2 lg:gap-12 gap-6 ">
+      <main className="py-12 overflow-x-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-6 lg:gap-12">
           <div className="leftSide lg:px-0 px-10 space-y-8">
             <div className="welcomeMessage">
               <h2 className="lg:text-4xl text-2xl  font-bold">
@@ -174,9 +174,9 @@ export default function SignUp() {
               </blockquote>
             </div>
           </div>
-          <div className="rightSide bg-white shadow-xl rounded-xl space-y-8 p-10">
+          <div className="rightSide bg-white shadow-xl rounded-xl space-y-8 p-5 sm:p-10">
             <div className="text-center">
-              <h2 className="text-3xl font-semibold">Create Your Account</h2>
+              <h2 className="lg:text-3xl text-xl  font-semibold">Create Your Account</h2>
               <p className="mt-1">Start your fresh journey with us today</p>
             </div>
             <div className="flex *:flex *:w-full *:justify-center *:gap-2 *:items-center gap-2 *:hover:bg-gray-100 ">
