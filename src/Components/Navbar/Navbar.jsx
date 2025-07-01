@@ -194,7 +194,7 @@ export default function Navbar() {
                 <span>All Categories</span>
                 <FontAwesomeIcon icon={faChevronDown} />
               </button>
-              <menu className="bg-white hidden group-hover:block transition-all duration-300 min-w-60 absolute top-10  divide-y-2 divide-gray-300/30 shadow  rounded-lg *:py-3 *:px-3 *:hover:bg-gray-100">
+              <menu className="bg-white hidden z-10 group-hover:block transition-all duration-300 min-w-60 absolute top-10  divide-y-2 divide-gray-300/30 shadow  rounded-lg *:py-3 *:px-3 *:hover:bg-gray-100">
                 <li>
                   <Link className="flex gap-2 items-center">
                     <FontAwesomeIcon

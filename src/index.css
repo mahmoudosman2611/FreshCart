@@ -32,7 +32,7 @@ body {
 }
 
 :root {
-    --color-primary-50: #f0fdf5;
+  --color-primary-50: #f0fdf5;
   --color-primary-100: #dcfce7;
   --color-primary-200: #bbf7d0;
   --color-primary-300: #86efac;
@@ -43,7 +43,6 @@ body {
   --color-primary-800: #166534;
   --color-primary-900: #14532d;
 }
-
 
 @layer base {
   body {
@@ -73,8 +72,6 @@ body {
   @apply mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-
-
 .loader {
   width: 48px;
   height: 48px;
@@ -83,7 +80,7 @@ body {
 }
 .loader::after,
 .loader::before {
-  content: '';
+  content: "";
   width: 48px;
   height: 48px;
   border: 2px solid var(--color-primary-800);
@@ -105,4 +102,14 @@ body {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply size-12! rounded-full bg-primary-400/50 after:text-lg! after:font-bold! after:text-white! hover:bg-primary-600/50 transition-colors duration-300;
+}
+
+
+.swiper-pagination-bullet-active{
+  @apply w-6! rounded-full! bg-white!
+}
