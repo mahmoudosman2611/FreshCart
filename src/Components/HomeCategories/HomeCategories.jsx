@@ -48,8 +48,11 @@ export default function HomeCategories() {
             <div className="grid xl:grid-cols-6 grid-cols-2 py-8 gap-6 ">
               {categories.map((category) => {
                 return (
-                    
-                  <div className="card flex flex-col items-center justify-between gap-2 bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer">
+                  <Link
+                    key={category._id}
+                    to={`Category/${category._id}`}
+                    className="card hover:scale-105 transition-all  flex flex-col items-center justify-between gap-2 bg-white p-6 rounded-xl shadow-lg hover:shadow-xl duration-300 cursor-pointer"
+                  >
                     <img
                       src={category.image}
                       alt=""
@@ -58,7 +61,7 @@ export default function HomeCategories() {
                     <h3 className=" font-semibold text-gray-600 ">
                       {category.name}
                     </h3>
-                  </div>
+                  </Link>
                 );
               })}
             </div>

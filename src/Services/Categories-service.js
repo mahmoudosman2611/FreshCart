@@ -8,6 +8,5 @@ export async function getAllCategories() {
 
   const response = await apiClient.request(options);
 
-
   return response;
 }
