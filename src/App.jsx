@@ -16,6 +16,8 @@ import Categories from "./Pages/Categories/Categories";
 import Brands from "./Pages/Brands/Brands";
 import { ToastContainer } from "react-toastify";
 import Loading from "./Components/Loading/Loading";
+import ProductsProvider from "./Context/Products.context";
+import CategoriesProvider from "./Context/Categories.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -33,56 +35,56 @@ function App() {
         },
         {
           path: "Brands",
-          element: <Brands/>,
+          element: <Brands />,
         },
         {
           path: "Categories",
-          element:<Categories/>,
+          element: <Categories />,
         },
         {
           path: "SearchProducts",
-          element: <SearchProducts/>,
+          element: <SearchProducts />,
         },
         {
           path: "Checkout",
-          element: <Checkout/>,
+          element: <Checkout />,
         },
         {
           path: "Product/:id",
-          element: <ProductDetails/>,
+          element: <ProductDetails />,
         },
         {
           path: "VerifyEmail",
-          element: <VerifyEmail/>,
+          element: <VerifyEmail />,
         },
         {
           path: "ForgetPassword",
-          element: <ForgetPassword/>,
+          element: <ForgetPassword />,
         },
         {
           path: "SignUp",
-          element: <SignUp/>,
+          element: <SignUp />,
         },
         {
           path: "Favourites",
-          element: <Favourites/>,
+          element: <Favourites />,
         },
         {
           path: "Orders",
-          element:<Orders/>,
+          element: <Orders />,
         },
 
         {
           path: "WishList",
-          element: <WishList/>,
+          element: <WishList />,
         },
         {
           path: "Loading",
-          element: <Loading/>,
+          element: <Loading />,
         },
         {
           path: "*",
-          element: <NotFound/>,
+          element: <NotFound />,
         },
       ],
     },
@@ -90,8 +92,17 @@ function App() {
 
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer position="top-right" autoClose={3000} closeButton={false} closeOnClick={true}  />
+      <ProductsProvider>
+        <CategoriesProvider>
+          <RouterProvider router={router} />
+          <ToastContainer
+            position="top-right"
+            autoClose={3000}
+            closeButton={false}
+            closeOnClick={true}
+          />
+        </CategoriesProvider>
+      </ProductsProvider>
     </>
   );
 }

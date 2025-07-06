@@ -26,17 +26,18 @@ export function ProductDetails() {
   }
   useEffect(() => {
     fetchProductDetails();
-  }, []);
+  }, [id]);
 
   if (isLoading) {
     return <Loading />;
   }
+  
 
   return (
     <>
       <ProductInfo productDetails={productDetails} />
-      {/* <ProductDetailsTabs />
-      <RelatedProducts /> */}
+      {/* <ProductDetailsTabs /> */}
+      <RelatedProducts productDetails={productDetails} />
     </>
   );
 }

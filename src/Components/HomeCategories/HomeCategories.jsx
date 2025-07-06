@@ -1,32 +1,18 @@
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import React, { useContext  } from "react";
 import { Link } from "react-router";
-import { getAllCategories } from "../../Services/Categories-service";
 import Loading from "../Loading/Loading";
 
+import { CategoriesContext } from "../../Context/Categories.context";
+
 export default function HomeCategories() {
-  const [categories, setCategories] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, categories, isError, error } = useContext(CategoriesContext);
 
-  async function fetchCategories() {
-    try {
-      setIsLoading(true);
-      const response = await getAllCategories();
-
-      if (response.success) {
-        setCategories(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
+    if (isLoading) {
+      return <Loading />;
     }
-  }
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+  
 
   return (
     <>

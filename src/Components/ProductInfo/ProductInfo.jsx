@@ -15,8 +15,6 @@ import { calculateDiscountPercentage } from "../../Utils/CalcDiscount";
 import ReactImageGallery from "react-image-gallery";
 
 export default function ProductInfo({ productDetails }) {
-  console.log(productDetails);
-
   const {
     price,
     description,
@@ -36,9 +34,9 @@ export default function ProductInfo({ productDetails }) {
           <div className="grid grid-cols-12 gap-4 gap-y-6 py-6">
             <div className="left col-span-12 lg:col-span-4 p-4">
               <ReactImageGallery
-              showNav = {false}
-              showPlayButton = {false}
-              showFullscreenButton = {false}
+                showNav={false}
+                showPlayButton={false}
+                showFullscreenButton={false}
                 items={images.map((image) => {
                   return {
                     original: image,
@@ -46,11 +44,6 @@ export default function ProductInfo({ productDetails }) {
                   };
                 })}
               />
-              {/* <img
-                src="https://ecommerce.routemisr.com/Route-Academy-products/1680403397402-cover.jpeg"
-                alt="product"
-                className="w-full"
-              /> */}
             </div>
 
             <div className="right col-span-12 lg:col-span-8 p-4 shadow-xl rounded-lg">

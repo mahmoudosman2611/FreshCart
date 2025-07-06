@@ -22,7 +22,7 @@ export default function Card({ productDetails }) {
     <>
       <div className="card group rounded-xl shadow-xl overflow-hidden relative">
         <div>
-          <Link to={`Product/${id}`} className="block">
+          <Link to={`/Product/${id}`} className="block">
             <img src={imageCover} alt="" className="lg:h-60 h-90 mx-auto" />
           </Link>
         </div>
@@ -30,8 +30,8 @@ export default function Card({ productDetails }) {
           <div>
             <span className="text-sm text-gray-500">{category.name}</span>
 
-            <h2 className="font-semibold line-clamp-2">
-              <Link to={`Product/${id}`}>{title}</Link>
+            <h2 className="font-semibold ">
+              <Link className="line-clamp-1 " to={`Product/${id}`}>{title} </Link>
             </h2>
           </div>
           <div className="rating flex gap-2 items-center">

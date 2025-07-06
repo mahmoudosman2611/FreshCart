@@ -1,39 +1,21 @@
 import { Link } from "react-router";
 import Card from "../Card/Card";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getAllProducts } from "../../Services/Product-service";
 import Loading from "../Loading/Loading";
 import { calcTimeLeft } from "../../Utils/CounterDown";
-
+import { productsContext } from "../../Context/Products.context";
 
 export default function HomeDeals() {
-  const [products, setProducts] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, products, isError, error } = useContext(productsContext);
+
   const [timeLeft, setTimeLeft] = useState({
     hours: 0,
     Minutes: 0,
     seconds: 0,
   });
 
-  async function fetchProducts() {
-    try {
-      setIsLoading(true);
-      const response = await getAllProducts();
 
-      if (response.success) {
-        setProducts(response.data.data);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }
-  console.log(calcTimeLeft());
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
