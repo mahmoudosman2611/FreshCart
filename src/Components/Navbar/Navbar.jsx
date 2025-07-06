@@ -297,7 +297,7 @@ export default function Navbar() {
 
               <search className="relative ">
                 <input
-                  className="form-control lg:min-w-60  "
+                  className="form-control lg:min-w-60"
                   type="text"
                   placeholder="Search for products"
                 />

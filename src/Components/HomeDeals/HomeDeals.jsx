@@ -3,16 +3,22 @@ import Card from "../Card/Card";
 import { useEffect, useState } from "react";
 import { getAllProducts } from "../../Services/Product-service";
 import Loading from "../Loading/Loading";
+import { calcTimeLeft } from "../../Utils/CounterDown";
+
 
 export default function HomeDeals() {
   const [products, setProducts] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 0,
+    Minutes: 0,
+    seconds: 0,
+  });
 
   async function fetchProducts() {
     try {
       setIsLoading(true);
       const response = await getAllProducts();
-      console.log(response);
 
       if (response.success) {
         setProducts(response.data.data);
@@ -23,11 +29,21 @@ export default function HomeDeals() {
       setIsLoading(false);
     }
   }
+  console.log(calcTimeLeft());
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const newTimeLeft = calcTimeLeft();
+      setTimeLeft(newTimeLeft);
+    }, 1000);
+    return function () {
+      clearInterval(timer);
+    };
+  }, []);
   if (isLoading) {
     return <Loading />;
   }
@@ -36,8 +52,6 @@ export default function HomeDeals() {
       return product.priceAfterDiscount;
     })
     .slice(0, 8);
-
-  console.log(Deals);
 
   return (
     <>
@@ -51,15 +65,15 @@ export default function HomeDeals() {
                 <p>Offers ends in :</p>
                 <div className="Counter flex gap-2">
                   <div className="size-7 text-sm bg-gray-900 text-white rounded-md flex justify-center items-center">
-                    2
+                    {String(timeLeft.hours).padStart(2, "0")}
                   </div>
                   <span> : </span>
                   <div className="size-7 text-sm bg-gray-900 text-white rounded-md flex justify-center items-center">
-                    30
+                    {String(timeLeft.Minutes).padStart(2, "0")}
                   </div>
                   <span> : </span>
                   <div className="size-7 text-sm bg-gray-900 text-white rounded-md flex justify-center items-center">
-                    23
+                    {String(timeLeft.seconds).padStart(2, "0")}
                   </div>
                 </div>
               </div>
