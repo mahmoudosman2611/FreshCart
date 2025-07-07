@@ -18,6 +18,9 @@ import { ToastContainer } from "react-toastify";
 import Loading from "./Components/Loading/Loading";
 import ProductsProvider from "./Context/Products.context";
 import CategoriesProvider from "./Context/Categories.context";
+import AuthProvider from "./Context/Auth.context";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Cart from "./Pages/Cart/Cart";
 
 function App() {
   const router = createBrowserRouter([
@@ -47,7 +50,11 @@ function App() {
         },
         {
           path: "Checkout",
-          element: <Checkout />,
+          element: (
+            <ProtectedRoute>
+              <Checkout />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "Product/:id",
@@ -66,17 +73,37 @@ function App() {
           element: <SignUp />,
         },
         {
+          path: "Cart",
+          element: (
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          ),
+        },
+        {
           path: "Favourites",
-          element: <Favourites />,
+          element: (
+            <ProtectedRoute>
+              <Favourites />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "Orders",
-          element: <Orders />,
+          element: (
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          ),
         },
 
         {
           path: "WishList",
-          element: <WishList />,
+          element: (
+            <ProtectedRoute>
+              <WishList />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "Loading",
@@ -92,17 +119,19 @@ function App() {
 
   return (
     <>
-      <ProductsProvider>
-        <CategoriesProvider>
-          <RouterProvider router={router} />
-          <ToastContainer
-            position="top-right"
-            autoClose={3000}
-            closeButton={false}
-            closeOnClick={true}
-          />
-        </CategoriesProvider>
-      </ProductsProvider>
+      <AuthProvider>
+        <ProductsProvider>
+          <CategoriesProvider>
+            <RouterProvider router={router} />
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              closeButton={false}
+              closeOnClick={true}
+            />
+          </CategoriesProvider>
+        </ProductsProvider>
+      </AuthProvider>
     </>
   );
 }

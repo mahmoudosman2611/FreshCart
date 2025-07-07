@@ -23,9 +23,11 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 import { Link, NavLink } from "react-router";
 import Logo from "../../assets/imgs/freshcart-logo.svg";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Context/Auth.context";
 
 export default function Navbar() {
+  const { logOut, token } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   function toggleMenu() {
     setIsMenuOpen(!isMenuOpen);
@@ -136,42 +138,50 @@ export default function Navbar() {
                   <span className="text-sm">Account</span>
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={`SignUp`}
-                  className={({ isActive }) => {
-                    return ` ${
-                      isActive ? `text-primary-600` : ``
-                    } flex flex-col gap-2 hover:text-primary-600 transition-color duration-300`;
-                  }}
+              {!token ? (
+                <>
+                  <li>
+                    <NavLink
+                      to={`SignUp`}
+                      className={({ isActive }) => {
+                        return ` ${
+                          isActive ? `text-primary-600` : ``
+                        } flex flex-col gap-2 hover:text-primary-600 transition-color duration-300`;
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faUserPlus} className="text-xl" />
+                      <span className="text-sm">Sign up</span>
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to={`Login`}
+                      className={({ isActive }) => {
+                        return ` ${
+                          isActive ? `text-primary-600` : ``
+                        } flex flex-col gap-2 hover:text-primary-600 transition-color duration-300`;
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        icon={faAddressCard}
+                        className="text-xl"
+                      />
+                      <span className="text-sm">Login</span>
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <li
+                  className={`flex flex-col gap-2 hover:text-primary-600 transition-color duration-300 cursor-pointer`}
+                  onClick={logOut}
                 >
-                  <FontAwesomeIcon icon={faUserPlus} className="text-xl" />
-                  <span className="text-sm">Sign up</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to={`Login`}
-                  className={({ isActive }) => {
-                    return ` ${
-                      isActive ? `text-primary-600` : ``
-                    } flex flex-col gap-2 hover:text-primary-600 transition-color duration-300`;
-                  }}
-                >
-                  <FontAwesomeIcon icon={faAddressCard} className="text-xl" />
-                  <span className="text-sm">Login</span>
-                </NavLink>
-              </li>
-
-              <li
-                className={`flex flex-col gap-2 hover:text-primary-600 transition-color duration-300 cursor-pointer`}
-              >
-                <FontAwesomeIcon
-                  icon={faRightFromBracket}
-                  className="text-xl"
-                />
-                <span className="text-sm">Logout</span>
-              </li>
+                  <FontAwesomeIcon
+                    icon={faRightFromBracket}
+                    className="text-xl"
+                  />
+                  <span className="text-sm">Logout</span>
+                </li>
+              )}
             </ul>
             <button
               onClick={toggleMenu}
@@ -279,8 +289,6 @@ export default function Navbar() {
         </nav>
         {/* OffCanvas */}
 
-
-
         {isMenuOpen && (
           <>
             <div
@@ -359,45 +367,53 @@ export default function Navbar() {
               <div className=" border-t-1 border-gray-300/50 py-5">
                 <h2 className="text-xl font-bold ">Account</h2>
                 <ul className="  *:hover:bg-gray-100 *:transition-colors *:duration-300 space-y-2 mt-3 ">
-                  <li>
-                    <NavLink
-                      to={`SignUp`}
-                      className={({ isActive }) => {
-                        return ` ${
-                          isActive ? `text-primary-600 bg-primary-100` : ``
-                        } flex  gap-2 transition-color duration-300 px-2 py-3`;
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faUserPlus} className="text-xl" />
-                      <span className="text-sm">Sign up</span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      to={`Login`}
-                      className={({ isActive }) => {
-                        return ` ${
-                          isActive ? `text-primary-600 bg-primary-100` : ``
-                        } flex  gap-2 transition-color duration-300 px-2 py-3`;
-                      }}
+                  {!token ? (
+                    <>
+                      <li>
+                        <NavLink
+                          to={`SignUp`}
+                          className={({ isActive }) => {
+                            return ` ${
+                              isActive ? `text-primary-600 bg-primary-100` : ``
+                            } flex  gap-2 transition-color duration-300 px-2 py-3`;
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faUserPlus}
+                            className="text-xl"
+                          />
+                          <span className="text-sm">Sign up</span>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to={`Login`}
+                          className={({ isActive }) => {
+                            return ` ${
+                              isActive ? `text-primary-600 bg-primary-100` : ``
+                            } flex  gap-2 transition-color duration-300 px-2 py-3`;
+                          }}
+                        >
+                          <FontAwesomeIcon
+                            icon={faAddressCard}
+                            className="text-xl"
+                          />
+                          <span className="text-sm">Login</span>
+                        </NavLink>
+                      </li>
+                    </>
+                  ) : (
+                    <li
+                      className={`flex  gap-2 transition-color duration-300 cursor-pointer px-2 py-3`}
+                      onClick={logOut}
                     >
                       <FontAwesomeIcon
-                        icon={faAddressCard}
+                        icon={faRightFromBracket}
                         className="text-xl"
                       />
-                      <span className="text-sm">Login</span>
-                    </NavLink>
-                  </li>
-
-                  <li
-                    className={`flex  gap-2 transition-color duration-300 cursor-pointer px-2 py-3`}
-                  >
-                    <FontAwesomeIcon
-                      icon={faRightFromBracket}
-                      className="text-xl"
-                    />
-                    <span className="text-sm">Logout</span>
-                  </li>
+                      <span className="text-sm">Logout</span>
+                    </li>
+                  )}
                 </ul>
               </div>
             </div>

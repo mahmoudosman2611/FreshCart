@@ -13,7 +13,7 @@ import {
 import Loginimg from "../../assets/imgs/login-img.png";
 
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useFormik } from "formik";
 
 import * as yup from "yup";
@@ -21,9 +21,14 @@ import * as yup from "yup";
 import { API_CONFIG } from "../../Config/base";
 import { sendDataToLogin } from "../../Services/auth-service";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../Context/Auth.context";
 
 export default function Login() {
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const { setToken } = useContext(AuthContext);
   const [isExistError, setIsExistError] = useState(null);
 
   const [isPassWordShown, setIsPassWordShown] = useState(true);
@@ -48,10 +53,20 @@ export default function Login() {
   async function handelLogin(values) {
     try {
       const response = await sendDataToLogin(values);
+
+
       if (response.success) {
         toast.success("Welcome Back!");
+
+        setToken(response.data.token);
+        if (values.rememberMe) {
+          localStorage.setItem("token", response.data.token);
+        } else {
+          sessionStorage.setItem("token", response.data.token);
+        }
+
         setTimeout(() => {
-          navigate("/");
+          navigate(from);
         }, 3000);
       }
     } catch (error) {
@@ -63,6 +78,7 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
+      rememberMe: "false",
     },
     validationSchema: schema,
     onSubmit: handelLogin,
@@ -90,8 +106,8 @@ export default function Login() {
               FreshCart-Your One-Stop Shop for Fresh Products
             </h2>
             <p className="lg:text-lg text-base mt-2 text-gray-600 ">
-              Join thousands of happy customers <br />  who trust FreshCart For their
-              daily grocery needs
+              Join thousands of happy customers <br /> who trust FreshCart For
+              their daily grocery needs
             </p>
           </div>
           <ul className="*:flex *:items-center *:gap-2 flex justify-center gap-3 items-center text-gray-600 ">
@@ -198,15 +214,15 @@ export default function Login() {
                 <button
                   type="button"
                   className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 cursor-pointer"
-                                    onClick=
-                  {() => {
+                  onClick={() => {
                     setIsPassWordShown(!isPassWordShown);
                   }}
-
                 >
-
-
-                                    {isPassWordShown ? <FontAwesomeIcon icon={faEyeSlash} /> :<FontAwesomeIcon icon={faEye} />}
+                  {isPassWordShown ? (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEye} />
+                  )}
                 </button>
 
                 <input
@@ -216,7 +232,7 @@ export default function Login() {
                   name="password"
                   placeholder="Enter your password"
                   value={formik.values.password}
-                  onChange={handelInputChange}
+                  onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                 />
               </div>
@@ -229,16 +245,19 @@ export default function Login() {
               {isExistError && <p className="text-red-500">*{isExistError}</p>}
             </div>
 
-            <div className="term ">
+            <div className="rememberMe ">
               <div className="flex items-center gap-2">
                 <input
                   type="checkbox"
-                  name="terms"
-                  id="terms"
+                  name="rememberMe"
+                  id="rememberMe"
                   className="accent-green-600 size-4"
+                  value={formik.values.rememberMe}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
                 />
 
-                <label htmlFor="terms">keep me signed in</label>
+                <label htmlFor="rememberMe">keep me signed in</label>
               </div>
             </div>
             <button

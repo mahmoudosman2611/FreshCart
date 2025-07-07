@@ -56,7 +56,7 @@ export default function RelatedProducts({ productDetails }) {
               navigation={{ nextEl: ".nextBtn", prevEl: ".prevPtn" }}
               breakpoints={{
                 0: {
-                  slidesPerView: 1,
+                  slidesPerView: 1.4,
                 },
                 480: {
                   slidesPerView: 2,

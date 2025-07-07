@@ -49,7 +49,7 @@ export default function Card({ productDetails }) {
                 <del className="text-gray-500">{price}EGP</del>
               )}
             </div>
-            <button className="btn bg-primary-500 text-white p-0 size-8  rounded-full hover:bg-primary-700 ">
+            <button className="btn bg-primary-500 text-white p-0 size-8  rounded-full hover:bg-primary-700 shrink-0 ">
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
