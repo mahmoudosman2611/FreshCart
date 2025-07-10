@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import Card from "../Card/Card";
 import { useContext, useEffect, useState } from "react";
-import { getAllProducts } from "../../Services/Product-service";
+
 import Loading from "../Loading/Loading";
 import { calcTimeLeft } from "../../Utils/CounterDown";
 import { productsContext } from "../../Context/Products.context";
@@ -14,8 +14,6 @@ export default function HomeDeals() {
     Minutes: 0,
     seconds: 0,
   });
-
-
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -34,6 +32,8 @@ export default function HomeDeals() {
       return product.priceAfterDiscount;
     })
     .slice(0, 8);
+
+    
 
   return (
     <>

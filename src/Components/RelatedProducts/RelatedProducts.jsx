@@ -68,7 +68,7 @@ export default function RelatedProducts({ productDetails }) {
                   slidesPerView: 4,
                 },
                 1280: {
-                  slidesPerView: 5,
+                  slidesPerView: 4,
                 },
               }}
             >

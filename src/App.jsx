@@ -21,6 +21,7 @@ import CategoriesProvider from "./Context/Categories.context";
 import AuthProvider from "./Context/Auth.context";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Cart from "./Pages/Cart/Cart";
+import CartProvider from "./Context/Cart.context";
 
 function App() {
   const router = createBrowserRouter([
@@ -120,17 +121,19 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <ProductsProvider>
-          <CategoriesProvider>
-            <RouterProvider router={router} />
-            <ToastContainer
-              position="top-right"
-              autoClose={3000}
-              closeButton={false}
-              closeOnClick={true}
-            />
-          </CategoriesProvider>
-        </ProductsProvider>
+        <CartProvider>
+          <ProductsProvider>
+            <CategoriesProvider>
+              <RouterProvider router={router} />
+              <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                closeButton={false}
+                closeOnClick={true}
+              />
+            </CategoriesProvider>
+          </ProductsProvider>
+        </CartProvider>
       </AuthProvider>
     </>
   );

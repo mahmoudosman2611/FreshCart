@@ -1,7 +1,10 @@
+import UnderConstruction from "../../Components/UnderConstruction/UnderConstruction";
 
 
 export default function WishList() {
   return (
-    <div>WishList</div>
+    <>
+    <UnderConstruction/>
+    </>
   )
 }

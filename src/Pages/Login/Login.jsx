@@ -23,12 +23,15 @@ import { sendDataToLogin } from "../../Services/auth-service";
 import { toast } from "react-toastify";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/Auth.context";
+import { CartContext } from "../../Context/Cart.context";
 
 export default function Login() {
+  const { handelAddingFetchCartItem } = useContext(CartContext);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
   const { setToken } = useContext(AuthContext);
+
   const [isExistError, setIsExistError] = useState(null);
 
   const [isPassWordShown, setIsPassWordShown] = useState(true);
@@ -54,7 +57,6 @@ export default function Login() {
     try {
       const response = await sendDataToLogin(values);
 
-
       if (response.success) {
         toast.success("Welcome Back!");
 
@@ -64,6 +66,8 @@ export default function Login() {
         } else {
           sessionStorage.setItem("token", response.data.token);
         }
+
+        await handelAddingFetchCartItem();
 
         setTimeout(() => {
           navigate(from);
@@ -78,7 +82,7 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
-      rememberMe: "false",
+      rememberMe: false,
     },
     validationSchema: schema,
     onSubmit: handelLogin,
@@ -232,7 +236,7 @@ export default function Login() {
                   name="password"
                   placeholder="Enter your password"
                   value={formik.values.password}
-                  onChange={formik.handleChange}
+                  onChange={handelInputChange}
                   onBlur={formik.handleBlur}
                 />
               </div>

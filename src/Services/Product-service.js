@@ -22,6 +22,8 @@ export async function getAllProducts({
     };
     const response = await apiClient.request(options);
 
+    
+
     return response;
   } catch (error) {
     console.log(error);

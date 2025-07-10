@@ -13,20 +13,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Rating from "../Rating/Rating";
 import { calculateDiscountPercentage } from "../../Utils/CalcDiscount";
 import ReactImageGallery from "react-image-gallery";
+import { useContext } from "react";
+import { CartContext } from "../../Context/Cart.context";
 
 export default function ProductInfo({ productDetails }) {
   const {
+    id,
     price,
     description,
     quantity,
-    id,
-    category,
+
     images,
     title,
     priceAfterDiscount,
     ratingsQuantity,
     ratingsAverage,
   } = productDetails;
+  const { handelAddingProductToCart } = useContext(CartContext);
   return (
     <>
       <section>
@@ -104,7 +107,12 @@ export default function ProductInfo({ productDetails }) {
                   <span className="">only {quantity} item in stock</span>
                 </div>
                 <div className="lg:flex  lg:flex-row flex flex-col gap-3 *:flex *:w-full *:justify-center *:gap-2 *:items-center lg:gap-4  *:hover:bg-red-700 mb-6 ">
-                  <button className="btn bg-red-600 border text-white  border-gray-400/50">
+                  <button
+                    onClick={() => {
+                      handelAddingProductToCart({ id });
+                    }}
+                    className="btn bg-red-600 border text-white  border-gray-400/50"
+                  >
                     <FontAwesomeIcon icon={faCartShopping} />
                     <span>Remove From Cart</span>
                   </button>

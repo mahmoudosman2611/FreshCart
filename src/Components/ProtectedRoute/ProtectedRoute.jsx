@@ -8,7 +8,7 @@ export default function ProtectedRoute({ children }) {
   const location = useLocation();
 
   if (token == null) {
-    return <Navigate to="/Login" state={{ from: location.pathname  }} />;
+    return <Navigate to="/Login" state={{ from: location }} replace />;
   } else {
     return children;
   }

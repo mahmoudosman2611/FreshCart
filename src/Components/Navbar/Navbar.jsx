@@ -11,6 +11,7 @@ import {
   faPersonDress,
   faPhone,
   faRightFromBracket,
+  faSpinner,
   faSuitcaseMedical,
   faUserPlus,
   faXmark,
@@ -25,8 +26,12 @@ import { Link, NavLink } from "react-router";
 import Logo from "../../assets/imgs/freshcart-logo.svg";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/Auth.context";
+import { CartContext } from "../../Context/Cart.context";
 
 export default function Navbar() {
+  const { cartinfo, isLoading } = useContext(CartContext);
+
+
   const { logOut, token } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   function toggleMenu() {
@@ -118,7 +123,11 @@ export default function Navbar() {
                   <div className="relative">
                     <FontAwesomeIcon icon={faCartShopping} />
                     <span className=" absolute  right-0 top-0 size-5 -translate-y-1/2 rounded-full bg-primary-600 flex item-center justify-center text-white text-sm">
-                      3
+                      {isLoading ? (
+                        <FontAwesomeIcon icon={faSpinner} spin />
+                      ) : (
+                       cartinfo?.numOfCartItems ?? 0
+                      )}
                     </span>
                   </div>
                   <span className="text-sm">Cart</span>
@@ -342,7 +351,11 @@ export default function Navbar() {
                       <div className="relative">
                         <FontAwesomeIcon icon={faCartShopping} />
                         <span className=" absolute  right-0 top-0 size-5 -translate-y-1/2 rounded-full bg-primary-600 flex item-center justify-center text-white text-sm">
-                          3
+                          {isLoading ? (
+                            <FontAwesomeIcon icon={faSpinner} spin />
+                          ) : (
+                           cartinfo?.numOfCartItems ?? 0
+                          )}
                         </span>
                       </div>
                       <span className="text-sm">Cart</span>

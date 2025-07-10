@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { calculateDiscountPercentage } from "../../Utils/CalcDiscount";
 import Rating from "../Rating/Rating";
 import { Link } from "react-router";
+import { useContext } from "react";
+import { CartContext } from "../../Context/Cart.context";
 
 export default function Card({ productDetails }) {
   const {
@@ -16,6 +18,8 @@ export default function Card({ productDetails }) {
     ratingsQuantity,
     category,
   } = productDetails;
+
+  const { handelAddingProductToCart } = useContext(CartContext);
 
   const Discount = calculateDiscountPercentage(price, priceAfterDiscount);
   return (
@@ -31,7 +35,9 @@ export default function Card({ productDetails }) {
             <span className="text-sm text-gray-500">{category.name}</span>
 
             <h2 className="font-semibold ">
-              <Link className="line-clamp-1 " to={`Product/${id}`}>{title} </Link>
+              <Link className="line-clamp-1 " to={`Product/${id}`}>
+                {title}{" "}
+              </Link>
             </h2>
           </div>
           <div className="rating flex gap-2 items-center">
@@ -49,7 +55,12 @@ export default function Card({ productDetails }) {
                 <del className="text-gray-500">{price}EGP</del>
               )}
             </div>
-            <button className="btn bg-primary-500 text-white p-0 size-8  rounded-full hover:bg-primary-700 shrink-0 ">
+            <button
+              onClick={() => {
+                handelAddingProductToCart({ id });
+              }}
+              className="btn bg-primary-500 text-white p-0 size-8  rounded-full hover:bg-primary-700 shrink-0 "
+            >
               <FontAwesomeIcon icon={faPlus} />
             </button>
           </div>
